@@ -12,7 +12,7 @@
           <input type="password" v-if="index === 1" v-model="loginPwd">
         </div>
         <div class="login-btn">
-          <i></i>
+          <i @click="handleLogin"></i>
         </div>
       </div>
     </div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { LOG_IN } from '../fetch/api'
+
 export default {
   name: 'login',
   data () {
@@ -28,6 +30,22 @@ export default {
       loginAccount: "",
       loginPwd: ""
     }
+  },
+  methods: {
+    handleLogin () {
+      let param = {
+        phone: this.loginAccount,
+        password: this.loginPwd
+      }
+      LOG_IN.login(param)
+        .then(res => {
+          if (res.code === 200) {
+            this.$router.push({
+              path: "/home"
+            })
+          }
+        })
+    } 
   }
 }
 </script>
@@ -74,6 +92,7 @@ export default {
           margin-bottom: 0; 
         }
         span {
+          font-size: .14rem;
           display: inline-block;
           height: 7vh;
           line-height: 7vh;
