@@ -1,0 +1,89 @@
+/* 默认样式.css start */
+html,body{
+	height: 100%;
+	font-size: 14px;
+	background-color: #ecf0f1;
+}
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+dd,
+th,
+td,
+input,
+select,
+form,
+textarea{
+	margin:0; 
+	padding:0;
+	color:#ffffff;
+	font-weight:normal;
+	box-sizing: border-box;
+}
+textarea{
+	resize:none; 
+	overflow:auto;
+	outline:none;
+}
+table{
+	border-collapse:collapse;
+}
+li{
+	list-style:none;
+	zoom:1;
+}
+a{
+	text-decoration:none; 
+	outline:none;
+}
+img{
+	border:none; 
+	vertical-align:top;
+}
+input{
+	border:none;
+	outline:none;
+}
+input::-ms-clear{  /* 取消ie10+ x */
+    display:none;
+}
+textarea::-webkit-input-placeholder,
+input::-webkit-input-placeholder {
+	color: #cccccc;
+	font-size: 14px;
+}
+
+strong{
+	font-weight:normal;
+}
+i,
+em{
+	font-style:normal;
+}
+.clear:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+.clear{
+	zoom:1;
+}
+.fl{ 
+	float:left;
+}
+.fr{ 
+	float:right;
+}
+
+/* 默认样式.css end */
+#app {
+	height: 100%;
+}
