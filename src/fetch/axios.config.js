@@ -23,7 +23,6 @@ axios.interceptors.response.use(response => {
     // 由于设置请求发生错误而触发的错误
     throw new Error(error.message)
   }
-  return Promise.reject(error)
 });
 
 
