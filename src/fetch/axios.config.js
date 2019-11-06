@@ -2,7 +2,6 @@
 import axios from 'axios';
 import qs from 'qs';
 
-
 /********** request拦截器 ********/
 axios.interceptors.request.use(config => {
   return config;
@@ -24,7 +23,6 @@ axios.interceptors.response.use(response => {
     throw new Error(error.message)
   }
 });
-
 
 /*
 method: 请求方式get,post
