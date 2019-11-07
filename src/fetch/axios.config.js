@@ -2,7 +2,6 @@
 import axios from 'axios';
 import qs from 'qs';
 
-
 /********** request拦截器 ********/
 axios.interceptors.request.use(config => {
   return config;
@@ -23,9 +22,7 @@ axios.interceptors.response.use(response => {
     // 由于设置请求发生错误而触发的错误
     throw new Error(error.message)
   }
-  return Promise.reject(error)
 });
-
 
 /*
 method: 请求方式get,post
