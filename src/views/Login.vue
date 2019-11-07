@@ -16,6 +16,10 @@
         </div>
       </div>
     </div>
+    <div class="pre-loading" v-show="preLoadingShow">
+      <i></i>
+      <span>超级无敌杜小胖 x cHeNg5</span>
+    </div>
   </div>
 </template>
 
@@ -28,10 +32,22 @@ export default {
     return {
       formTitles: ["账号", "密码"],
       loginAccount: "",
-      loginPwd: ""
+      loginPwd: "",
+      preLoadingShow: true
     }
   },
   methods: {
+    isLogin () {
+      setTimeout(() => {
+        if(typeof localStorage["uid"] === "undefined") {
+          this.preLoadingShow = false;
+        } else {
+          this.$router.push({
+            path: "/home"
+          })
+        }
+      }, 3000)
+    },
     handleLogin () {
       let param = {
         phone: this.loginAccount,
@@ -40,12 +56,16 @@ export default {
       LOG_IN.login(param)
         .then(res => {
           if (res.code === 200) {
+            localStorage["uid"] = res.account.id;
             this.$router.push({
               path: "/home"
             })
           }
         })
     } 
+  },
+  created () {
+    this.isLogin();
   }
 }
 </script>
@@ -56,6 +76,7 @@ export default {
   height: 100%;
   background: url("../assets/images/login_bg.jpg") 50% 50% no-repeat;
   background-size: 110%;
+  position: relative;
   .login-hello {
     height: 30vh;
     display: flex;
@@ -128,6 +149,33 @@ export default {
         background: #1a154f url("../assets/images/login_btn.svg") 50% 50% no-repeat;
         background-size: 17%;
       }
+    }
+  }
+  .pre-loading {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    i {
+      display: inline-block;
+      width: 100vw;
+      height: 100vw;
+      background: url("../assets/images/loading.gif") 50% 50% no-repeat;
+      background-size: 100%; 
+    }
+    span {
+      position: absolute;
+      left: 50%;
+      bottom: .2rem;
+      transform: translateX(-50%);
+      color: #1a154f;
+      font-size: .12rem;
+      font-weight: bold;
+      letter-spacing: .01rem;
     }
   }
 }
