@@ -43,7 +43,7 @@ export default {
           this.preLoadingShow = false;
         } else {
           this.$router.push({
-            path: "/home"
+            path: "/home/find"
           })
         }
       }, 3000)
@@ -58,7 +58,7 @@ export default {
           if (res.code === 200) {
             localStorage["uid"] = res.account.id;
             this.$router.push({
-              path: "/home"
+              path: "/home/find"
             })
           }
         })

@@ -1,13 +1,18 @@
 <template>
   <div class="find-source">
-    FindSource
+    <index-swipper />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'FindSource'
+import IndexSwipper from '../components/IndexSwipper.vue'
+
+export default {
+  name: 'FindSource',
+  components: {
+    IndexSwipper
   }
+}
 </script>
 
 <style lang="scss" scoped>

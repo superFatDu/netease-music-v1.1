@@ -1,7 +1,5 @@
-// const PROXY_TARGET = "http://10.0.5.23:3000";
-// const PROXY_TARGET = "http://192.168.0.105:3000";
 const PROXY_TARGET = {
-  company: "",
+  company: "http://10.0.5.23:3000",
   home: "http://192.168.0.105:3000"
 };
 module.exports = {
@@ -11,7 +9,7 @@ module.exports = {
     open: true,
     proxy: {
       "/api": {
-        target: PROXY_TARGET.home,
+        target: PROXY_TARGET.company,
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
