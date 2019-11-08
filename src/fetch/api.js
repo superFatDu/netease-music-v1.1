@@ -10,9 +10,12 @@ const SWIPPER_BANNER = {
 const FIND_SOURCE = {
   getRecommendList: param => ajaxRequest('post', '/api//personalized', 1, param)
 }
-
+const MY_SOURCE = {
+  getMyList: param => ajaxRequest('post', '/api/user/playlist', 1, param)
+}
 export {
   LOG_IN,
   SWIPPER_BANNER,
-  FIND_SOURCE
+  FIND_SOURCE,
+  MY_SOURCE
 }
