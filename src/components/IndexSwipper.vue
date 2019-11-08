@@ -71,7 +71,11 @@ export default {
   width: 100%;
   border-radius: .1rem;
   overflow: hidden;
+  padding: 0 .15rem;
+  box-sizing: border-box;
+  margin-top: .05rem;
   .swiper-container {
+    border-radius: .07rem;
     img {
       width: 100%;
     }

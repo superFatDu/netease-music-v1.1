@@ -24,7 +24,7 @@ form,
 textarea{
 	margin:0; 
 	padding:0;
-	color:#ffffff;
+	columns: #333333;;
 	font-weight:normal;
 	box-sizing: border-box;
 }

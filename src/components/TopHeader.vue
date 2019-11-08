@@ -77,7 +77,14 @@
 
 <style lang='scss' scoped>
 .top-header {
+  width: 100%;
   height: .55rem;
+  padding: 0 .15rem;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
   ul {
     width: 100%;
     height: 100%;

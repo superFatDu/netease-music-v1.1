@@ -9,7 +9,7 @@ module.exports = {
     open: true,
     proxy: {
       "/api": {
-        target: PROXY_TARGET.company,
+        target: PROXY_TARGET.home,
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
