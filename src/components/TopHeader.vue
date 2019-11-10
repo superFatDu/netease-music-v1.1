@@ -52,6 +52,7 @@
       handleTop (opt, idx) {
         switch (idx) {
           case 0:
+            this.$emit("openUserInfo");
             break;
           case 1:
           case 2:
