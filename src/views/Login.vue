@@ -89,6 +89,7 @@ export default {
       font-weight: bold;
       letter-spacing: .02rem;
       line-height: .4rem;
+      color: #ffffff;
       &:first-child {
         font-size: .2rem;
       }

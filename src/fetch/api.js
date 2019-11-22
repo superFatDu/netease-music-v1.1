@@ -13,9 +13,15 @@ const FIND_SOURCE = {
 const MY_SOURCE = {
   getMyList: param => ajaxRequest('post', '/api/user/playlist', 1, param)
 }
+const USER_INFO = {
+  logout: param => ajaxRequest('post', '/api/logout', 1, param),
+  getUserDetail: param => ajaxRequest('post', '/api/user/detail', 1, param),
+  signIn: param => ajaxRequest('post', '/api/daily_signin', 1, param)
+}
 export {
   LOG_IN,
   SWIPPER_BANNER,
   FIND_SOURCE,
-  MY_SOURCE
+  MY_SOURCE,
+  USER_INFO
 }
