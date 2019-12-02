@@ -102,23 +102,27 @@ export default {
       margin: .2rem 0 .1rem 0;
     }
     table {
+      width: 100%;
       table-layout: fixed;
       tr {
         height: .8rem;
         td {
           &:first-child {
-            color: red;
             width: .4rem;
+            color: #999999;
           }
           &:last-child {
             color: #c7c7c7;
+            width: .7rem;
+            text-align: right;
           }
           p {
             &:first-child {
               font-size: 16px;
               padding-bottom: .05rem;
               span {
-                margin-left: .05rem;
+                font-style: italic;
+                margin-left: .07rem;
                 &.hot {
                   color: red;
                   font-weight: bold;
@@ -132,8 +136,17 @@ export default {
             &:last-child {
               color: #c7c7c7;
               overflow: hidden;
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
+        }
+        &:nth-child(1) td:nth-child(1),
+        &:nth-child(2) td:nth-child(1),
+        &:nth-child(3) td:nth-child(1) {
+          color: red;
         }
         &:nth-child(1) td:nth-child(2) p:first-child,
         &:nth-child(2) td:nth-child(2) p:first-child,
