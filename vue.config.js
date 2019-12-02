@@ -1,6 +1,6 @@
 const PROXY_TARGET = {
   company: "http://10.0.5.23:3000",
-  home: "http://192.168.0.105:3000"
+  home: "http://192.168.0.108:3000"
 };
 module.exports = {
   devServer: {

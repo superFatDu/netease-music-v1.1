@@ -18,10 +18,15 @@ const USER_INFO = {
   getUserDetail: param => ajaxRequest('post', '/api/user/detail', 1, param),
   signIn: param => ajaxRequest('post', '/api/daily_signin', 1, param)
 }
+const SEARCH = {
+  getSearchDefault: param => ajaxRequest('post', '/api/search/default', 1, param),
+  getHotList: param => ajaxRequest('post', '/api/search/hot/detail', 1, param)
+}
 export {
   LOG_IN,
   SWIPPER_BANNER,
   FIND_SOURCE,
   MY_SOURCE,
-  USER_INFO
+  USER_INFO,
+  SEARCH
 }
