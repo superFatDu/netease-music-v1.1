@@ -3,7 +3,7 @@
     <div class="create-collects">
       <p class="block-title">创建的歌单<span class="block-sub-title">（{{createList.length}}）</span></p>
       <div class="list-items">
-        <div class="list-item" v-for="(item, index) of createList" :key="index">
+        <div class="list-item" v-for="(item, index) of createList" :key="index" @click="handleCollection(item)">
           <img src="" alt="" v-lazy="item.coverImgUrl">
           <div class="item-info">
             <p class="item name">{{item.name}}</p>
@@ -15,7 +15,7 @@
     <div class="my-collects">
       <p class="block-title">收藏的歌单<span class="block-sub-title">（{{collectList.length}}）</span></p>
       <div class="list-items">
-        <div class="list-item" v-for="(item, index) of collectList" :key="index">
+        <div class="list-item" v-for="(item, index) of collectList" :key="index" @click="handleCollection(item)">
           <img src="" alt="" v-lazy="item.coverImgUrl">
           <div class="item-info">
             <p class="item name">{{item.name}}</p>
@@ -52,6 +52,12 @@ export default {
             }
           }
         })
+    },
+    handleCollection(opt) {
+      let id = opt.id;
+      this.$router.push({
+        path: `/songlist/collection/${id}`
+      })
     }
   },
   created () {

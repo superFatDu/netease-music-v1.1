@@ -22,11 +22,15 @@ const SEARCH = {
   getSearchDefault: param => ajaxRequest('post', '/api/search/default', 1, param),
   getHotList: param => ajaxRequest('post', '/api/search/hot/detail', 1, param)
 }
+const SONG_LIST = {
+  getSongList: param => ajaxRequest('post', '/api/playlist/detail', 1, param)
+}
 export {
   LOG_IN,
   SWIPPER_BANNER,
   FIND_SOURCE,
   MY_SOURCE,
   USER_INFO,
-  SEARCH
+  SEARCH,
+  SONG_LIST
 }

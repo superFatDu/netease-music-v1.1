@@ -33,7 +33,7 @@ const routes = [
     component: () => import('../views/Search.vue')
   },
   {
-    path: '/songlist/:id',
+    path: '/songlist/:from/:id',
     name: 'SongList',
     component: () => import('../views/SongList.vue')
   }
