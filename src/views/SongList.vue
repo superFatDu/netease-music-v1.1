@@ -8,7 +8,6 @@
         <img v-if="typeof listInfo.coverImgUrl !== 'undefined'" :src="listInfo.coverImgUrl+ '?' + new Date().getTime()" alt="" class="cover-img">
       </div>
     </div>
-    <canvas id="myCanvas"></canvas>
   </div>
 </template>
 
@@ -38,9 +37,8 @@ export default {
         if (res.code === 200) {
           this.listInfo = res.playlist;
           this.$nextTick(() => {
-            let canvas = document.querySelector("#myCanvas");
             let img = document.querySelector(".cover-img");
-            getImageColor(canvas, img);
+            getImageColor(img);
           })
         }
       })
