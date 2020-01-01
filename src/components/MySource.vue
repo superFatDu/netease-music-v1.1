@@ -56,7 +56,7 @@ export default {
     handleCollection(opt) {
       let id = opt.id;
       this.$router.push({
-        path: `/songlist/collection/${id}`
+        path: `/songlist/collection/${id}/null`
       })
     }
   },

@@ -2,7 +2,7 @@
   <div class="recommend-list">
     <p class="block-title">推荐歌单</p>
     <div class="list-items">
-      <div class="list-item" v-for="(item, index) of list" :key="index" @click="handleList(item.id)">
+      <div class="list-item" v-for="(item, index) of list" :key="index" @click="handleList(item)">
         <div class="img-box">
           <img :src="item.picUrl" alt="">
           <span class="play-count">{{item.playCount | playFilter}}</span>
@@ -33,6 +33,13 @@ export default {
            this.list = res.result;
          }
        })
+    },
+    handleList(opt) {
+      let id = opt.id;
+      let desc = opt.copywriter;
+      this.$router.push({
+        path: `/songlist/collection/${id}/${desc}`
+      })
     }
   },
   created () {
