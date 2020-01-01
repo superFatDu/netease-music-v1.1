@@ -16,6 +16,7 @@
         </div>
       </div>
     </div>
+    <div class="song-list-items"></div>
   </div>
 </template>
 
@@ -87,6 +88,9 @@ export default {
   background: linear-gradient(#111d67, #996cfa);
   .list-header {
     .list-back-header {
+      position: fixed;
+      top: 0;
+      left: 0;
       .list-header-info {
         width: 100%;
         height: 100%;
@@ -108,18 +112,19 @@ export default {
         }
       }
     }
+    padding-top: .55rem;
     .list-info {
       display: flex;
       width: 100%;
       box-sizing: border-box;
-      padding: 0.15rem;
+      padding: 0.15rem .15rem .3rem .15rem;
       img.cover-img {
-        min-width: 35vw;
-        height: 35vw;
+        min-width: 1.3rem;
+        height: 1.3rem;
         border-radius: .07rem;
       }
       .list-user-info {
-        height: 35vw;
+        height: 1.3rem;
         margin-left: .15rem;
         display: flex;
         flex-direction: column;
@@ -148,6 +153,12 @@ export default {
         }
       }
     }
+  }
+  .song-list-items {
+    width: 100%;
+    height: calc(100% - 2.3rem);
+    background-color: #ffffff;
+    border-radius: .25rem .25rem 0 0;
   }
 }
 </style>
