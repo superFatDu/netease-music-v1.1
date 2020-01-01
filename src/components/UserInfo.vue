@@ -9,8 +9,8 @@
     <div class="user-wrapper">
       <div class="basic-info">
         <div class="basic-user">
-          <img :src="userInfo.profile.backgroundUrl" alt="" class="user-bg">
-          <img :src="userInfo.profile.avatarUrl" alt="" class="user-avator">
+          <img v-if="typeof userInfo.profile.backgroundUrl !== 'undefined'" :src="userInfo.profile.backgroundUrl" alt="" class="user-bg">
+          <img v-if="typeof userInfo.profile.avatarUrl !== 'undefined'" :src="userInfo.profile.avatarUrl" alt="" class="user-avator">
           <div class="user-detail">
             <span class="user-name">{{userInfo.profile.nickname}}</span>
             <i class="user-level">Lv.{{userInfo.level}}</i>
@@ -45,7 +45,12 @@ export default {
       openMask: false,
       startX: 0,
       endX: 0,
-      userInfo: {}
+      userInfo: {
+        profile : {
+          backgroundUrl: "",
+          avatarUrl: ""
+        }
+      }
     };
   },
   methods: {

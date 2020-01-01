@@ -32,7 +32,12 @@ export default {
     return {
       fromType: '',
       fromId: '',
-      listInfo: {},
+      listInfo: {
+        creator: {
+          avatarUrl: ""
+        },
+        description: ""
+      },
       isShowDesc: false,
       listDesc: ""
     }
@@ -65,7 +70,7 @@ export default {
   },
   filters: {
     descFilter (val) {
-      if (val.length > 25) {
+      if (val && val.length > 25) {
         return `${val.slice(0, 25)}...`
       } else {
         return `${val}`
