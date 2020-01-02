@@ -2,7 +2,11 @@
   <div class="home">
     <user-info :openUserInfoMask="openUserInfoMask" @responseClose="responseClose" />
     <top-header @openUserInfo="openUserInfo" />
-    <router-view />
+    <!-- <router-view /> -->
+    <keep-alive> 
+      <router-view v-if="$route.meta.keepAlive" />>
+    </keep-alive> 
+    <router-view v-if="!$route.meta.keepAlive" />
   </div>
 </template>
 

@@ -47,8 +47,7 @@ export default {
   },
   methods: {
     getToday () {
-      let now = new Date().getDate() + 22;
-      return now;
+      return new Date().getDate();
     }
   }
 }

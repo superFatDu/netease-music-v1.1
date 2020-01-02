@@ -16,7 +16,27 @@
         </div>
       </div>
     </div>
-    <div class="song-list-items"></div>
+    <div class="song-list-items">
+      <div class="detail-header">
+        <span class="songlist-total">播放全部<i>（共{{listInfo.trackCount}}首）</i></span>
+        <span v-if="fromType === 'collection'" class="songlist-subed"><i></i> {{listInfo.subscribedCount | subCountFilter}}</span>
+        <span v-else class="songlist-not-subed"><i></i> 收藏（{{listInfo.subscribedCount}}）</span>
+      </div>
+      <div class="detail-list">
+        <ul>
+          <li v-for="(item, index) of listInfo.tracks" :key="item.id">
+            <span class="list-index">{{index + 1}}</span>
+            <div class="list-item">
+              <p class="list-item-name">{{item.name}}</p>
+              <p class="list-item-info">
+                <span v-for="(singer, idx) of item.ar" :key="singer.id">{{idx === 0 ? singer.name : `/${singer.name}`}}</span> - <span>{{item.al.name}}</span>
+              </p>
+            </div>
+            <i class="list-more"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,6 +96,13 @@ export default {
       } else {
         return `${val}`
       }  
+    },
+    subCountFilter(val) {
+      if (val && parseInt(val) >= 10000) {
+        return `${(val / 1000).toFixed(2)}万`
+      } else {
+        return `${val}`
+      }
     }
   }
 }
@@ -108,7 +135,7 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          margin-top: .05rem;
+          margin-top: .02rem;
         }
       }
     }
@@ -156,9 +183,69 @@ export default {
   }
   .song-list-items {
     width: 100%;
-    height: calc(100% - 2.3rem);
+    min-height: calc(100% - 2.3rem);
     background-color: #ffffff;
     border-radius: .25rem .25rem 0 0;
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: .6rem;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 .15rem;
+      .songlist-total {
+        i {
+          color: #bbbbbb;
+          font-size: 12px;
+          font-weight: normal;
+        }
+      }
+      .songlist-subed {
+        height: 0.46rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .13rem;
+        color: #dddddd;
+        i {
+          display: inline-block;
+          width: .28rem;
+          height: .28rem;
+          background: url("../assets/images/collected.svg") 50% 50% no-repeat;
+          background-size: 100%;
+          margin-right: .05rem;
+        }
+      }
+      .songlist-not-subed {
+        height: 0.46rem;
+        background-color: #f72626;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 .08rem;
+        border-radius: .23rem;
+        font-size: .13rem;
+        color: #ffffff;
+        i {
+          display: inline-block;
+          width: .2rem;
+          height: .2rem;
+          background: url("../assets/images/collecting.svg") 50% 50% no-repeat;
+          background-size: 100%;
+        }
+      }
+    }
+    .detail-list {
+      ul li {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 .15rem;
+        display: flex;
+        .list-item {
+        }
+      }
+    }
   }
 }
 </style>

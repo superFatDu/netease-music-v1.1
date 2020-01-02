@@ -38,7 +38,7 @@ export default {
       let id = opt.id;
       let desc = opt.copywriter;
       this.$router.push({
-        path: `/songlist/collection/${id}/${desc}`
+        path: `/songlist/recommend/${id}/${desc}`
       })
     }
   },

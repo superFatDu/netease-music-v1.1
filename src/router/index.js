@@ -18,7 +18,10 @@ const routes = [
       {
         path: 'my',
         name: 'MySource',
-        component: () => import('../components/MySource.vue')
+        component: () => import('../components/MySource.vue'),
+        meta: {
+          KeepAlive: true
+        }
       },
       {
         path: 'find',
