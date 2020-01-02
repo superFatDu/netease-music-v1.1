@@ -112,12 +112,13 @@ export default {
 .song-list {
   width: 100%;
   height: 100%;
-  background: linear-gradient(#111d67, #996cfa);
+  background-color: #302f89;
   .list-header {
     .list-back-header {
       position: fixed;
       top: 0;
       left: 0;
+      background-color: #302f89;
       .list-header-info {
         width: 100%;
         height: 100%;
@@ -169,14 +170,14 @@ export default {
             border-radius: 50%;
           }
           span {
-            color: #bbbbbb;
+            color: #aaaaaa;
             font-size: 12px;
             margin-left: .1rem;
           }
         }
         .list-signature {
-          color: #bbbbbb;
-          font-size: 12px;
+          color: #aaaaaa;
+          font-size: 10px;
         }
       }
     }
@@ -185,7 +186,7 @@ export default {
     width: 100%;
     min-height: calc(100% - 2.3rem);
     background-color: #ffffff;
-    border-radius: .25rem .25rem 0 0;
+    border-radius: .22rem .22rem 0 0;
     .detail-header {
       display: flex;
       justify-content: space-between;
@@ -196,7 +197,7 @@ export default {
       padding: 0 .15rem;
       .songlist-total {
         i {
-          color: #bbbbbb;
+          color: #aaaaaa;
           font-size: 12px;
           font-weight: normal;
         }
@@ -239,10 +240,39 @@ export default {
     .detail-list {
       ul li {
         width: 100%;
+        height: .7rem;
         box-sizing: border-box;
         padding: 0 .15rem;
         display: flex;
+        align-items: center;
+        .list-index {
+          width: .35rem;
+          color: #aaaaaa;
+        }
         .list-item {
+          width: calc(100% - .5rem);
+          box-sizing: border-box;
+          padding-right: .1rem;
+          .list-item-name{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .list-item-info {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #aaaaaa;
+            font-size: .12rem;
+            margin-top: .05rem;
+          }
+        }
+        .list-more {
+          width: .15rem;
+          height: .22rem;
+          background: url("../assets/images/icon-dot_vertical.svg") 50% 50% no-repeat;
+          background-size: 100%;
+          
         }
       }
     }

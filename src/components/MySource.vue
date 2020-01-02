@@ -19,7 +19,7 @@
           <img src="" alt="" v-lazy="item.coverImgUrl">
           <div class="item-info">
             <p class="item name">{{item.name}}</p>
-            <p class="item count">{{item.trackCount}}首</p>
+            <p class="item count">{{item.trackCount}}首，by {{item.creator.nickname}}</p>
           </div>
         </div>
       </div>
