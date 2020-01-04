@@ -18,7 +18,7 @@
     </div>
     <div class="song-list-items">
       <div class="detail-header">
-        <span class="songlist-total">播放全部<i>（共{{listInfo.trackCount}}首）</i></span>
+        <span class="songlist-total">全部歌单<i>（共{{listInfo.trackCount}}首）</i></span>
         <span v-if="fromType === 'collection'" class="songlist-subed"><i></i> {{listInfo.subscribedCount | subCountFilter}}</span>
         <span v-else class="songlist-not-subed"><i></i> 收藏（{{listInfo.subscribedCount}}）</span>
       </div>
