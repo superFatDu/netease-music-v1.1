@@ -37,9 +37,8 @@
         </ul>
       </div>
     </div>
-    <div class="bottom-tip-mask" :class="openMask ? 'open-mask' : ''">
-      <div class="bottom-tip-info"></div>
-    </div>
+    <div class="bottom-tip-mask" :class="openMask ? 'open-mask' : ''" @click="handleTipMask"></div>
+    <div class="bottom-tip-info" :class="openMask ? 'open-mask' : ''"></div>
   </div>
 </template>
 
@@ -95,6 +94,9 @@ export default {
     handleListMore(item) {
       if (!this.openMask) this.openMask = !this.openMask;
       global.console.log(item)
+    },
+    handleTipMask() {
+      if (this.openMask) this.openMask = !this.openMask;
     }
   },
   filters: {
@@ -121,6 +123,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #302f89;
+  position: relative;
   .list-header {
     .list-back-header {
       position: fixed;
@@ -296,21 +299,23 @@ export default {
     &.open-mask {
       background: rgba(0, 0, 0, 0.5);
       transition: all 0.5s ease;
-      z-index: 9999;
-      .bottom-tip-info {
-        bottom: 0;
-      }
+      z-index: 99;
     }
-    .bottom-tip-info {
+  }
+  .bottom-tip-info {
       width: 100%;
       height: 85%;
       background-color: #ffffff;
-      position: absolute;
+      position: fixed;
       bottom: -100%;
       left: 0;
       transition: all 0.5s ease;
       border-radius: 0.22rem 0.22rem 0 0;
+      &.open-mask {
+        bottom: 0;
+        transition: all 0.5s ease;
+        z-index: 999;
+      }
     }
-  }
 }
 </style>
