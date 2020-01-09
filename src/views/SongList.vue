@@ -32,10 +32,13 @@
                 <span v-for="(singer, idx) of item.ar" :key="singer.id">{{idx === 0 ? singer.name : `/${singer.name}`}}</span> - <span>{{item.al.name}}</span>
               </p>
             </div>
-            <i class="list-more"></i>
+            <i class="list-more" @click="handleListMore(item)"></i>
           </li>
         </ul>
       </div>
+    </div>
+    <div class="bottom-tip-mask" :class="openMask ? 'open-mask' : ''">
+      <div class="bottom-tip-info"></div>
     </div>
   </div>
 </template>
@@ -60,7 +63,8 @@ export default {
         description: ""
       },
       isShowDesc: false,
-      listDesc: ""
+      listDesc: "",
+      openMask: false
     }
   },
   created() {
@@ -87,6 +91,10 @@ export default {
         this.isShowDesc = true;
         this.listDesc = args.desc;
       }
+    },
+    handleListMore(item) {
+      if (!this.openMask) this.openMask = !this.openMask;
+      global.console.log(item)
     }
   },
   filters: {
@@ -275,6 +283,33 @@ export default {
           
         }
       }
+    }
+  }
+  .bottom-tip-mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    &.open-mask {
+      background: rgba(0, 0, 0, 0.5);
+      transition: all 0.5s ease;
+      z-index: 9999;
+      .bottom-tip-info {
+        bottom: 0;
+      }
+    }
+    .bottom-tip-info {
+      width: 100%;
+      height: 85%;
+      background-color: #ffffff;
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      transition: all 0.5s ease;
+      border-radius: 0.22rem 0.22rem 0 0;
     }
   }
 }
