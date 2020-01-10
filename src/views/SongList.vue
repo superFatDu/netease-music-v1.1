@@ -8,19 +8,38 @@
         </div>
       </back-header>
       <div class="list-info">
-        <img v-if="typeof listInfo.coverImgUrl !== 'undefined'" :src="listInfo.coverImgUrl+ '?' + new Date().getTime()" alt="" class="cover-img">
+        <img
+          v-if="typeof listInfo.coverImgUrl !== 'undefined'"
+          :src="listInfo.coverImgUrl+ '?' + new Date().getTime()"
+          alt
+          class="cover-img"
+        />
         <div class="list-user-info">
           <p class="list-name">{{listInfo.name}}</p>
-          <p class="list-user"><img :src="listInfo.creator.avatarUrl" alt="" class="user-avator"><span class="user-name">{{listInfo.creator.nickname}}</span></p>
-          <p class="list-signature">{{listInfo.description || listInfo.creator.signature | descFilter}}</p>
+          <p class="list-user">
+            <img :src="listInfo.creator.avatarUrl" alt class="user-avator" />
+            <span class="user-name">{{listInfo.creator.nickname}}</span>
+          </p>
+          <p
+            class="list-signature"
+          >{{listInfo.description || listInfo.creator.signature | descFilter}}</p>
         </div>
       </div>
     </div>
     <div class="song-list-items">
       <div class="detail-header">
-        <span class="songlist-total">全部歌单<i>（共{{listInfo.trackCount}}首）</i></span>
-        <span v-if="fromType === 'collection'" class="songlist-subed"><i></i> {{listInfo.subscribedCount | subCountFilter}}</span>
-        <span v-else class="songlist-not-subed"><i></i> 收藏（{{listInfo.subscribedCount}}）</span>
+        <span class="songlist-total">
+          全部歌单
+          <i>（共{{listInfo.trackCount}}首）</i>
+        </span>
+        <span v-if="fromType === 'collection'" class="songlist-subed">
+          <i></i>
+          {{listInfo.subscribedCount | subCountFilter}}
+        </span>
+        <span v-else class="songlist-not-subed">
+          <i></i>
+          收藏（{{listInfo.subscribedCount}}）
+        </span>
       </div>
       <div class="detail-list">
         <ul>
@@ -29,7 +48,11 @@
             <div class="list-item">
               <p class="list-item-name">{{item.name}}</p>
               <p class="list-item-info">
-                <span v-for="(singer, idx) of item.ar" :key="singer.id">{{idx === 0 ? singer.name : `/${singer.name}`}}</span> - <span>{{item.al.name}}</span>
+                <span
+                  v-for="(singer, idx) of item.ar"
+                  :key="singer.id"
+                >{{idx === 0 ? singer.name : `/${singer.name}`}}</span> -
+                <span>{{item.al.name}}</span>
               </p>
             </div>
             <i class="list-more" @click="handleListMore(item)"></i>
@@ -38,23 +61,44 @@
       </div>
     </div>
     <div class="bottom-tip-mask" :class="openMask ? 'open-mask' : ''" @click="handleTipMask"></div>
-    <div class="bottom-tip-info" :class="openMask ? 'open-mask' : ''"></div>
+    <div class="bottom-tip-info" :class="openMask ? 'open-mask' : ''">
+      <div class="tip-header">
+        <img :src="bottomTipInfo.al.picUrl" alt />
+        <div class="tip-name">
+          <p>歌曲：{{ bottomTipInfo.name }}</p>
+          <p class="tip-auth-name">
+            <span
+              v-for="(item, index) of bottomTipInfo.ar"
+              :key="index"
+            >{{ index === 0 ? item.name : `/${item.name}` }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="tip-detail">
+        <img src="../assets/images/bottom-tip-icon.svg" alt="" />
+        <p>专辑：{{ bottomTipInfo.al.name }}</p>
+      </div>
+      <div class="tip-detail" v-for="(item, index) of detailInfo" :key="index">
+        <img src="../assets/images/bottom-tip-icon.svg" alt="" />
+        <p>{{ item }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import BackHeader from '../components/BackHeader.vue'
-import { getImageColor } from '../assets/js/utils'
-import { SONG_LIST } from '../fetch/api'
+import BackHeader from "../components/BackHeader.vue";
+import { getImageColor } from "../assets/js/utils";
+import { SONG_LIST } from "../fetch/api";
 export default {
-  name: 'SongList',
+  name: "SongList",
   components: {
     BackHeader
   },
   data() {
     return {
-      fromType: '',
-      fromId: '',
+      fromType: "",
+      fromId: "",
       listInfo: {
         creator: {
           avatarUrl: ""
@@ -63,26 +107,38 @@ export default {
       },
       isShowDesc: false,
       listDesc: "",
-      openMask: false
-    }
+      openMask: false,
+      bottomTipInfo: {
+        name: "",
+        ar: [
+          {
+            name: ""
+          }
+        ],
+        al: {
+          picUrl: ""
+        }
+      },
+      detailInfo: ["下一首播放", "收藏到歌单", "下载", "分享", "设为铃声", "查看视频"]
+    };
   },
   created() {
     this.getArgs();
-    this.getSongInfo()
+    this.getSongInfo();
   },
   methods: {
     getSongInfo() {
-      SONG_LIST.getSongList({id: this.fromId}).then(res => {
+      SONG_LIST.getSongList({ id: this.fromId }).then(res => {
         if (res.code === 200) {
           this.listInfo = res.playlist;
           this.$nextTick(() => {
             let img = document.querySelector(".cover-img");
             getImageColor(img);
-          })
+          });
         }
-      })
+      });
     },
-    getArgs() { 
+    getArgs() {
       let args = this.$route.params;
       this.fromType = args.from;
       this.fromId = args.id;
@@ -93,29 +149,42 @@ export default {
     },
     handleListMore(item) {
       if (!this.openMask) this.openMask = !this.openMask;
-      global.console.log(item)
+      this.bottomTipInfo = item;
     },
     handleTipMask() {
       if (this.openMask) this.openMask = !this.openMask;
+      setTimeout(() => {
+        this.bottomTipInfo = {
+          name: "",
+          ar: [
+            {
+              name: ""
+            }
+          ],
+          al: {
+            picUrl: ""
+          }
+        };
+      }, 400);
     }
   },
   filters: {
-    descFilter (val) {
+    descFilter(val) {
       if (val && val.length > 25) {
-        return `${val.slice(0, 25)}...`
+        return `${val.slice(0, 25)}...`;
       } else {
-        return `${val}`
-      }  
+        return `${val}`;
+      }
     },
     subCountFilter(val) {
       if (val && parseInt(val) >= 10000) {
-        return `${(val / 1000).toFixed(2)}万`
+        return `${(val / 1000).toFixed(2)}万`;
       } else {
-        return `${val}`
+        return `${val}`;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -142,29 +211,29 @@ export default {
           color: #ffffff;
         }
         p.header-recommend {
-          font-size: .08rem;
+          font-size: 0.08rem;
           color: #999999;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          margin-top: .02rem;
+          margin-top: 0.02rem;
         }
       }
     }
-    padding-top: .55rem;
+    padding-top: 0.55rem;
     .list-info {
       display: flex;
       width: 100%;
       box-sizing: border-box;
-      padding: 0.15rem .15rem .3rem .15rem;
+      padding: 0.15rem 0.15rem 0.3rem 0.15rem;
       img.cover-img {
         min-width: 1.3rem;
         height: 1.3rem;
-        border-radius: .07rem;
+        border-radius: 0.07rem;
       }
       .list-user-info {
         height: 1.3rem;
-        margin-left: .15rem;
+        margin-left: 0.15rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -183,7 +252,7 @@ export default {
           span {
             color: #aaaaaa;
             font-size: 12px;
-            margin-left: .1rem;
+            margin-left: 0.1rem;
           }
         }
         .list-signature {
@@ -197,15 +266,15 @@ export default {
     width: 100%;
     min-height: calc(100% - 2.3rem);
     background-color: #ffffff;
-    border-radius: .22rem .22rem 0 0;
+    border-radius: 0.22rem 0.22rem 0 0;
     .detail-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: .6rem;
+      height: 0.6rem;
       width: 100%;
       box-sizing: border-box;
-      padding: 0 .15rem;
+      padding: 0 0.15rem;
       .songlist-total {
         i {
           color: #aaaaaa;
@@ -218,15 +287,15 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: .13rem;
+        font-size: 0.13rem;
         color: #dddddd;
         i {
           display: inline-block;
-          width: .28rem;
-          height: .28rem;
+          width: 0.28rem;
+          height: 0.28rem;
           background: url("../assets/images/collected.svg") 50% 50% no-repeat;
           background-size: 100%;
-          margin-right: .05rem;
+          margin-right: 0.05rem;
         }
       }
       .songlist-not-subed {
@@ -235,14 +304,14 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 .08rem;
-        border-radius: .23rem;
-        font-size: .13rem;
+        padding: 0 0.08rem;
+        border-radius: 0.23rem;
+        font-size: 0.13rem;
         color: #ffffff;
         i {
           display: inline-block;
-          width: .2rem;
-          height: .2rem;
+          width: 0.2rem;
+          height: 0.2rem;
           background: url("../assets/images/collecting.svg") 50% 50% no-repeat;
           background-size: 100%;
         }
@@ -251,20 +320,20 @@ export default {
     .detail-list {
       ul li {
         width: 100%;
-        height: .7rem;
+        height: 0.7rem;
         box-sizing: border-box;
-        padding: 0 .15rem;
+        padding: 0 0.15rem;
         display: flex;
         align-items: center;
         .list-index {
-          width: .35rem;
+          width: 0.35rem;
           color: #aaaaaa;
         }
         .list-item {
-          width: calc(100% - .5rem);
+          width: calc(100% - 0.5rem);
           box-sizing: border-box;
-          padding-right: .1rem;
-          .list-item-name{
+          padding-right: 0.1rem;
+          .list-item-name {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -274,16 +343,16 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             color: #aaaaaa;
-            font-size: .12rem;
-            margin-top: .05rem;
+            font-size: 0.12rem;
+            margin-top: 0.05rem;
           }
         }
         .list-more {
-          width: .15rem;
-          height: .22rem;
-          background: url("../assets/images/icon-dot_vertical.svg") 50% 50% no-repeat;
+          width: 0.15rem;
+          height: 0.22rem;
+          background: url("../assets/images/icon-dot_vertical.svg") 50% 50%
+            no-repeat;
           background-size: 100%;
-          
         }
       }
     }
@@ -296,26 +365,79 @@ export default {
     top: 0;
     left: 0;
     z-index: -1;
+    transition: all 0.4s linear;
     &.open-mask {
-      background: rgba(0, 0, 0, 0.5);
-      transition: all 0.5s ease;
+      background: rgba(0, 0, 0, 0.6);
       z-index: 99;
     }
   }
   .bottom-tip-info {
-      width: 100%;
-      height: 85%;
-      background-color: #ffffff;
-      position: fixed;
-      bottom: -100%;
-      left: 0;
-      transition: all 0.5s ease;
-      border-radius: 0.22rem 0.22rem 0 0;
-      &.open-mask {
-        bottom: 0;
-        transition: all 0.5s ease;
-        z-index: 999;
+    width: 100%;
+    height: 80%;
+    background-color: #ffffff;
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    transition: bottom 0.4s linear;
+    border-radius: 0.22rem 0.22rem 0 0;
+    &.open-mask {
+      bottom: 0;
+      z-index: 999;
+    }
+    .tip-header {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 10px;
+      border-bottom: 1px solid #f7f7f7;
+      img {
+        width: 17vw;
+        height: 17vw;
+        border-radius: 5px;
+        margin-right: 0.15rem;
+      }
+      .tip-name {
+        p {
+          font-size: 16px;
+        }
+        p.tip-auth-name {
+          margin-top: 2px;
+          span {
+            color: #aaaaaa;
+            font-size: 13px;
+          }
+        }
       }
     }
+    .tip-detail {
+      width: 100%;
+      height: .52rem;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      img {
+        width: .25rem;
+        height: .25rem;
+        margin-right: .15rem;
+      }
+      p {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 1px;
+          background-color: #f7f7f7;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
+      }
+    }
+  }
 }
 </style>
