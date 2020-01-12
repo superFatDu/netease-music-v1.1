@@ -61,7 +61,14 @@
       </div>
     </div>
     <div class="bottom-tip-mask" :class="openMask ? 'open-mask' : ''" @click="handleTipMask"></div>
-    <div class="bottom-tip-info" :class="openMask ? 'open-mask' : ''">
+    <div
+      class="bottom-tip-info"
+      :class="openMask ? 'open-mask' : ''"
+      ref="touchTip"
+      @touchstart="tipTouchStart($event)"
+      @touchmove="tipTouchMove($event)"
+      @touchend="tipTouchEnd($event)"
+    >
       <div class="tip-header">
         <img :src="bottomTipInfo.al.picUrl" alt />
         <div class="tip-name">
@@ -75,11 +82,11 @@
         </div>
       </div>
       <div class="tip-detail">
-        <img src="../assets/images/bottom-tip-icon.svg" alt="" />
+        <img src="../assets/images/bottom-tip-icon.svg" alt />
         <p>专辑：{{ bottomTipInfo.al.name }}</p>
       </div>
       <div class="tip-detail" v-for="(item, index) of detailInfo" :key="index">
-        <img src="../assets/images/bottom-tip-icon.svg" alt="" />
+        <img src="../assets/images/bottom-tip-icon.svg" alt />
         <p>{{ item }}</p>
       </div>
     </div>
@@ -119,7 +126,15 @@ export default {
           picUrl: ""
         }
       },
-      detailInfo: ["下一首播放", "收藏到歌单", "下载", "分享", "设为铃声", "查看视频"]
+      detailInfo: [
+        "下一首播放",
+        "收藏到歌单",
+        "下载",
+        "分享",
+        "设为铃声",
+        "查看视频"
+      ],
+      iniClientY: 0
     };
   },
   created() {
@@ -150,6 +165,7 @@ export default {
     handleListMore(item) {
       if (!this.openMask) this.openMask = !this.openMask;
       this.bottomTipInfo = item;
+      document.body.style.overflow = "hidden";
     },
     handleTipMask() {
       if (this.openMask) this.openMask = !this.openMask;
@@ -166,6 +182,37 @@ export default {
           }
         };
       }, 400);
+    },
+    tipTouchStart(event) {
+      let e;
+      if (event.touches) {
+        e = event.touches[0];
+      } else {
+        e = event;
+      }
+      this.iniClientY = e.clientY;
+    },
+    tipTouchMove(event) {
+      let e = event.changedTouches[0];
+      let changedY = e.clientY;
+      let target = this.$refs.touchTip;
+      if (changedY < this.iniClientY) {
+        target.style.bottom = "0";
+      } else {
+        target.style.bottom = this.iniClientY - changedY + "px";
+      }
+      global.console.log("changed", changedY - this.iniClientY)
+    },
+    tipTouchEnd(event) {
+      let e = event.changedTouches[0];
+      let changedY = e.clientY;
+      global.console.log("changed", this.iniClientY - changedY)
+      if (changedY - this.iniClientY > 200) {
+        this.handleTipMask();
+        this.$refs.touchTip.style.bottom = "";
+      } else {
+        this.$refs.touchTip.style.bottom = "0";
+      }
     }
   },
   filters: {
@@ -411,14 +458,14 @@ export default {
     }
     .tip-detail {
       width: 100%;
-      height: .52rem;
+      height: 0.52rem;
       display: flex;
       align-items: center;
       padding: 0 10px;
       img {
-        width: .25rem;
-        height: .25rem;
-        margin-right: .15rem;
+        width: 0.25rem;
+        height: 0.25rem;
+        margin-right: 0.15rem;
       }
       p {
         flex: 1;
@@ -427,7 +474,7 @@ export default {
         align-items: center;
         position: relative;
         &::after {
-          content: '';
+          content: "";
           display: block;
           width: 100%;
           height: 1px;
